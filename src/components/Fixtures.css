@@ -1,0 +1,57 @@
+.fixtures-container {
+  width: 100%;
+  overflow-x: auto; /* Allows table to be scrollable on small screens */
+  padding: 20px;
+  box-sizing: border-box; /* Ensures padding doesn't add to the width */
+}
+
+.fixtures-container table {
+  width: 100%;
+  border-collapse: collapse; /* Removes space between borders */
+  margin: auto; /* Centers the table */
+  background-color: #f9f9f9; /* Light background for the table */
+}
+
+.fixtures-container th,
+.fixtures-container td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd; /* Light border for cells */
+}
+
+.fixtures-container th {
+  background-color: #2196f3; /* Blue background for headers */
+  color: white;
+  font-size: 16px;
+}
+
+.fixtures-container td {
+  font-size: 14px;
+}
+
+.fixtures-container input[type="number"] {
+  width: 60px; /* Fixed width for inputs */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.fixtures-container tr:nth-child(even) {
+  background-color: #f2f2f2; /* Zebra striping for rows */
+}
+
+.fixtures-container tr:hover {
+  background-color: #ddd; /* Highlight row on hover */
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+  .fixtures-container {
+    width: 100%;
+  }
+
+  .fixtures-container table {
+    width: 100%;
+  }
+}
