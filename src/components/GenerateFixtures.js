@@ -3,6 +3,12 @@ export default function generateFixtures(teams) {
     throw new Error("At least two teams are required to generate fixtures.");
   }
 
+  // Shuffling teams
+  for (let i = teams.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [teams[i], teams[j]] = [teams[j], teams[i]];
+  }
+
   const fixtures = [];
   let fixtureId = 0;
   const totalTeams = teams.length;
@@ -22,8 +28,8 @@ export default function generateFixtures(teams) {
         homeTeamId: home.id,
         awayTeam: away.name,
         awayTeamId: away.id,
-        homeTeamGoal: "TBD", // Placeholder for goals
-        awayTeamGoal: "TBD", // Placeholder for goals
+        homeTeamGoal: 0,
+        awayTeamGoal: 0,
       });
       fixtureId++;
     }

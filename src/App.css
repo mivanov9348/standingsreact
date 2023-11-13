@@ -75,14 +75,3 @@
   max-width: 1200px;
   margin: auto;
 }
-
-.fixtures-standings > div {
-  flex: 1;
-  margin: 10px;
-}
-table,
-th,
-td {
-  border: 1px solid;
-  text-align: center;
-}
