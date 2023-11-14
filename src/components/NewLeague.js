@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./NewLeague.css";
 import Button from "./utils/Button";
 import Input from "./utils/Input";
+import GroupStandings from "./GroupStandings";
 
 function NewLeague() {
   const [competitionType, setCompetitionType] = useState("");
@@ -9,6 +10,7 @@ function NewLeague() {
   const [groupsCount, setGroupsCount] = useState(0);
   const [teamsPerGroup, setTeamsPerGroup] = useState(0);
   const [teamNames, setTeamNames] = useState([]);
+  const [isGenerated, setIsGenerated] = useState(false);
 
   useEffect(
     function () {
@@ -22,11 +24,11 @@ function NewLeague() {
     setTeamNames(Array(teamsCount).fill(""));
   }, [teamsCount]);
 
-  const handleTeamNameChange = (name, index) => {
+  function handleTeamNameChange(name, index) {
     const updatedTeamNames = [...teamNames];
     updatedTeamNames[index] = name;
     setTeamNames(updatedTeamNames);
-  };
+  }
 
   return (
     <div>
@@ -41,20 +43,51 @@ function NewLeague() {
       </div>
       <div className="choices-container">
         {competitionType === "league" && (
-          <League
-            teamsCount={teamsCount}
-            setGroupsCount={setGroupsCount}
-            setTeamsPerGroup={setTeamsPerGroup}
-          />
+          <div>
+            <League
+              teamsCount={teamsCount}
+              setGroupsCount={setGroupsCount}
+              setTeamsPerGroup={setTeamsPerGroup}
+            />
+            <TeamsInputs
+              teamsCount={teamsCount}
+              teamNames={teamNames}
+              onTeamNameChange={handleTeamNameChange}
+            />
+            {teamsCount > 0 && (
+              <div className="generateBtn">
+                <Button onClick={() => setIsGenerated(true)}>
+                  {"Generate League"}
+                </Button>
+              </div>
+            )}
+          </div>
         )}
         {competitionType === "knockouts" && (
-          <Knockouts teamsCount={teamsCount} />
+          <div>
+            <Knockouts teamsCount={teamsCount} />
+            <TeamsInputs
+              teamsCount={teamsCount}
+              teamNames={teamNames}
+              onTeamNameChange={handleTeamNameChange}
+            />
+            {teamsCount > 0 && (
+              <div className="generateBtn">
+                <Button>{"Generate"}</Button>
+              </div>
+            )}
+          </div>
         )}
-        <TeamsInputs
-          teamsCount={teamsCount}
-          teamNames={teamNames}
-          onTeamNameChange={handleTeamNameChange}
-        />
+
+        {isGenerated && (
+          <GroupStandings
+            teams={teamNames}
+            groups={groupsCount}
+            teamsPerGroup={teamsPerGroup}
+          />
+        )}
+
+        {console.log(isGenerated)}
       </div>
     </div>
   );

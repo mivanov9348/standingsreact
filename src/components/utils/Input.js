@@ -1,5 +1,5 @@
-function Input({ placeholder, type, style }) {
-  return <input type={type} placeholder={placeholder} style={style} />;
+function Input({ value, onChange, ...props }) {
+  return <input value={value} onChange={onChange} {...props} />;
 }
 
 export default Input;

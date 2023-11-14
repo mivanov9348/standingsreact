@@ -46,21 +46,37 @@
 }
 
 .teamsinput-container {
-  background-color: gainsboro;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  gap: 10px; /* space between inputs */
+  gap: 10px;
   margin-top: 20px;
   border: 2px solid black;
+  background-color: gainsboro;
+  padding: 10px;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .teamsinput-container input {
-  margin-top: 3px;
   margin-left: auto;
   margin-right: auto;
-  width: 100px;
+  flex: 0 0 20%;
+  margin-top: 3px;
   margin-bottom: 10px;
   border: 2px solid black;
+  text-align: center;
+}
+
+.generateBtn {
+  margin-top: 5px;
+  color: gainsboro;
+  font-weight: bolder;
+  margin-left: 400px;
+}
+
+.generateBtn button:hover {
+  color: firebrick;
 }
