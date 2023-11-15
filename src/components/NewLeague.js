@@ -26,7 +26,7 @@ function NewLeague() {
 
   function handleTeamNameChange(name, index) {
     const updatedTeamNames = [...teamNames];
-    updatedTeamNames[index] = name;
+    updatedTeamNames[index] = name !== "" ? name : "TBD";
     setTeamNames(updatedTeamNames);
   }
 
@@ -80,11 +80,13 @@ function NewLeague() {
         )}
 
         {isGenerated && (
-          <GroupStandings
-            teams={teamNames}
-            groups={groupsCount}
-            teamsPerGroup={teamsPerGroup}
-          />
+          <div>
+            <GroupStandings
+              teams={teamNames}
+              groups={groupsCount}
+              teamsPerGroup={teamsPerGroup}
+            />
+          </div>
         )}
 
         {console.log(isGenerated)}
@@ -170,7 +172,7 @@ function TeamsInputs({ teamsCount, teamNames, onTeamNameChange }) {
           key={i}
           type="text"
           placeholder={`Team: ${i + 1}`}
-          value={teamNames[i] || ""}
+          value={teamNames[i]}
           onChange={(e) => onTeamNameChange(e.target.value, i)}
           style={{ textAlign: "center" }}
         />

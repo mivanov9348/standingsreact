@@ -1,4 +1,4 @@
-import React from "react";
+import "./GroupStandings.css";
 
 function GroupStandings({ teams, groups, teamsPerGroup }) {
   // Function to shuffle the teams array
@@ -28,9 +28,9 @@ function GroupStandings({ teams, groups, teamsPerGroup }) {
   const groupStandings = splitIntoGroups(shuffledTeams, groups, teamsPerGroup);
 
   return (
-    <div>
+    <div className="group-standings-container">
       {groupStandings.map((group, index) => (
-        <div key={index}>
+        <div key={index} className="group-container">
           <h3>Group {index + 1}</h3>
           <ul>
             {group.map((team, idx) => (
