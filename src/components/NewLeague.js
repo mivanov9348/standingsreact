@@ -3,6 +3,7 @@ import "./NewLeague.css";
 import Button from "./utils/Button";
 import Input from "./utils/Input";
 import GroupStandings from "./GroupStandings";
+import Fixtures from "./Fixtures";
 
 function NewLeague() {
   const [competitionType, setCompetitionType] = useState("");
@@ -10,7 +11,8 @@ function NewLeague() {
   const [groupsCount, setGroupsCount] = useState(0);
   const [teamsPerGroup, setTeamsPerGroup] = useState(0);
   const [teamNames, setTeamNames] = useState([]);
-  const [isGenerated, setIsGenerated] = useState(false);
+  const [leagueGenerated, setLeagueGenerated] = useState(false);
+  const [knockoutsGenerated, setKnockoutsGenerated] = useState(false);
 
   useEffect(
     function () {
@@ -56,7 +58,7 @@ function NewLeague() {
             />
             {teamsCount > 0 && (
               <div className="generateBtn">
-                <Button onClick={() => setIsGenerated(true)}>
+                <Button onClick={() => setLeagueGenerated(true)}>
                   {"Generate League"}
                 </Button>
               </div>
@@ -65,7 +67,7 @@ function NewLeague() {
         )}
         {competitionType === "knockouts" && (
           <div>
-            <Knockouts teamsCount={teamsCount} />
+            <Knockouts teamsCount={teamsCount} setTeamsCount={setTeamsCount} />
             <TeamsInputs
               teamsCount={teamsCount}
               teamNames={teamNames}
@@ -73,13 +75,15 @@ function NewLeague() {
             />
             {teamsCount > 0 && (
               <div className="generateBtn">
-                <Button>{"Generate"}</Button>
+                <Button onClick={() => setKnockoutsGenerated(true)}>
+                  {"Generate Fixtures"}
+                </Button>
               </div>
             )}
           </div>
         )}
 
-        {isGenerated && (
+        {leagueGenerated && (
           <div>
             <GroupStandings
               teams={teamNames}
@@ -89,18 +93,31 @@ function NewLeague() {
           </div>
         )}
 
-        {console.log(isGenerated)}
+        {knockoutsGenerated && (
+          <div>
+            <Fixtures teams={teamNames} />
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-function Knockouts() {
+function Knockouts({ teamsCount, setTeamsCount }) {
   return (
     <div className="modify-container">
       <h1>Knockout Stage</h1>
       <hr />
-      <NumberOfTeams type="knockouts" />
+      <select onChange={(e) => setTeamsCount(Number(e.target.value))}>
+        <option value="0">Teams</option>
+        <option value="2">2</option>
+        <option value="4">4</option>
+        <option value="8">8</option>
+        <option value="16">16</option>
+        <option value="32">32</option>
+        <option value="64">64</option>
+      </select>
+      <NumberOfTeams type="knockouts" teamsCount={teamsCount} />
       <br />
     </div>
   );
@@ -143,23 +160,9 @@ function League({ teamsCount, setGroupsCount, setTeamsPerGroup }) {
 function NumberOfTeams({ type, teamsCount }) {
   return (
     <div>
-      {type === "knockouts" && (
-        <select>
-          <option value="0">Teams</option>
-          <option value="2">2</option>
-          <option value="4">4</option>
-          <option value="8">8</option>
-          <option value="16">16</option>
-          <option value="32">32</option>
-          <option value="64">64</option>
-        </select>
-      )}
+      {type === "knockouts" && <p>Teams: {teamsCount}</p>}
 
-      {type === "league" && (
-        <div className="leagueTeams">
-          <p>Teams: {teamsCount}</p>
-        </div>
-      )}
+      {type === "league" && <div className="leagueTeams"></div>}
     </div>
   );
 }
